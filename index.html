@@ -302,14 +302,14 @@
         }
 
         .contact {
-            text-align: center; /* Centers the heading/text above the links */
+            text-align: center;
             margin-bottom: 3rem;
         }
 
         .social-links {
-            display: flex; /* Lays out the links in a row */
-            justify-content: center; /* Centers the row of links */
-            gap: 2rem; /* Adds space between each link */
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
             margin-top: 2rem;
         }
 
@@ -319,20 +319,20 @@
             justify-content: center;
             width: 50px;
             height: 50px;
-            border-radius: 50%; /* Makes the box a circle */
+            border-radius: 50%;
             background: rgba(58, 26, 26, 0.8);
-            color: #ffa500; /* Orange color for the icon */
+            color: #ffa500;
             font-size: 1.5rem;
             text-decoration: none;
             transition: transform 0.3s, background 0.3s;
             border: 1px solid #ff6b00;
-    }
+        }
 
         .social-link:hover {
-            transform: translateY(-5px); /* Moves the icon up when hovered */
+            transform: translateY(-5px);
             background: rgba(255, 107, 0, 0.2);
-            color: #ff6b00; /* Darker orange on hover */
-     }
+            color: #ff6b00;
+       }
         
         footer {
             text-align: center;
@@ -377,7 +377,6 @@
     </style>
 </head>
 <body>
-    <!-- Night Sky Background -->
     <div id="stars"></div>
     <div class="moon"></div>
 
@@ -485,12 +484,11 @@
         </section>
 
         <footer>
-            <p>&copy; 2025 Sunny. All rights reserved. <i class="fas fa-crown apple-icon"></i></p>
+            <p>© 2025 Sunny. All rights reserved. <i class="fas fa-crown apple-icon"></i></p>
         </footer>
     </div>
 
     <script>
-        // Create stars for the night sky
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 200;
@@ -499,14 +497,11 @@
                 const star = document.createElement('div');
                 star.classList.add('star');
                 
-                // Random position
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
                 
-                // Random size
                 const size = Math.random() * 3;
                 
-                // Random animation delay
                 const delay = Math.random() * 5;
                 
                 star.style.left = `${x}%`;
@@ -519,7 +514,6 @@
             }
         }
         
-        // Fetch Discord status from Lanyard API
         async function fetchDiscordStatus() {
             const userId = '1117652429698252820';
             const apiUrl = `https://api.lanyard.rest/v1/users/${userId}`;
@@ -539,25 +533,19 @@
             }
         }
         
-        // Update Discord status display
         function updateDiscordStatus(data) {
-            // Hide loading and show content
             document.getElementById('status-loading').style.display = 'none';
             document.getElementById('status-content').style.display = 'flex';
             
-            // Update username
             document.getElementById('username').textContent = data.discord_user.username;
             
-            // Update status and status dot
             const status = data.discord_status;
             const statusDot = document.getElementById('status-dot');
             const statusText = document.getElementById('status-text');
             
-            // Remove all status classes and add the current one
             statusDot.className = 'status-dot';
             statusDot.classList.add(status);
             
-            // Set status text
             const statusMap = {
                 'online': 'Online',
                 'idle': 'Idle',
@@ -566,30 +554,28 @@
             };
             statusText.textContent = statusMap[status] || 'Unknown';
             
-            // Update avatar if available
             if (data.discord_user.avatar) {
                 const avatarUrl = `https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png`;
                 const statusAvatar = document.getElementById('status-avatar');
                 statusAvatar.innerHTML = `<img src="${avatarUrl}" alt="Discord Avatar">`;
             }
             
-            // Update activities
             const activityContainer = document.getElementById('activity-container');
             activityContainer.innerHTML = '';
             
             if (data.activities && data.activities.length > 0) {
                 data.activities.forEach(activity => {
-                    if (activity.type === 0 || activity.type === 2) { // Game or Spotify
+                    if (activity.type === 0 || activity.type === 2) {
                         const activityEl = document.createElement('div');
                         activityEl.classList.add('activity');
                         
-                        if (activity.type === 0) { // Game
+                        if (activity.type === 0) {
                             activityEl.innerHTML = `
                                 <p><strong>Playing</strong> ${activity.name}</p>
                                 ${activity.details ? `<p>${activity.details}</p>` : ''}
                                 ${activity.state ? `<p>${activity.state}</p>` : ''}
                             `;
-                        } else if (activity.type === 2) { // Spotify
+                        } else if (activity.type === 2) {
                             activityEl.innerHTML = `
                                 <p><strong>Listening</strong> ${activity.details}</p>
                                 <p>by ${activity.state}</p>
@@ -602,12 +588,10 @@
             }
         }
         
-        // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
             fetchDiscordStatus();
             
-            // Refresh status every second
             setInterval(fetchDiscordStatus, 1000);
         });
     </script>

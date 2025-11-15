@@ -1,527 +1,294 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunny</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>@</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <style>        * {            margin: 0;            padding: 0;            box-sizing: border-box;            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;        }        body {            background: linear-gradient(to bottom, #1a0f0f, #2a1515, #3a1a1a);            color: #ffffff;            min-height: 100vh;            overflow-x: hidden;            position: relative;
+            /* FIX: Added padding-bottom to ensure content and footer are visible above the fixed 80px player bar */
+            padding-bottom: 90px; 
+        }        #stars {            position: fixed;            top: 0;            left: 0;            width: 100%;            height: 100%;            z-index: -1;        }        .star {            position: absolute;            background-color: #ffa500;            border-radius: 50%;            animation: twinkle 5s infinite;        }        @keyframes twinkle {            0%, 100% { opacity: 0.2; }            50% { opacity: 0.8; }        }        .moon {            position: fixed;            top: 10%;            right: 10%;            width: 120px;            height: 120px;            background: radial-gradient(circle at 30% 30%, #ff6b00, #ffa500);            border-radius: 50%;            box-shadow: 0 0 50px rgba(255, 165, 0, 0.5);            z-index: -1;        }        .container {            max-width: 1200px;            margin: 0 auto;            padding: 2rem;        }        header {            display: flex;            justify-content: space-between;            align-items: center;            padding: 1rem 0;            margin-bottom: 3rem;            border-bottom: 1px solid #ff6b00;        }        .logo {            font-size: 2rem;            font-weight: 700;            background: linear-gradient(45deg, #ff6b00, #ffa500);            -webkit-background-clip: text;            -webkit-text-fill-color: transparent;        }        nav ul {            display: flex;            list-style: none;            gap: 2rem;        }        nav a {            color: #ffa07a;            text-decoration: none;            font-weight: 500;            transition: color 0.3s;        }        nav a:hover {            color: #ff6b00;        }        .hero {            display: flex;            align-items: center;            gap: 3rem;            margin-bottom: 5rem;        }        .profile-image {            width: 300px;            height: 300px;            border-radius: 50%;            display: flex;            align-items: center;            justify-content: center;            position: relative;            overflow: hidden;            box-shadow: 0 0 30px rgba(255, 107, 0, 0.5);            border: 3px solid #ff6b00;        }        .profile-image img {            width: 100%;            height: 100%;            object-fit: cover;            border-radius: 50%;        }        .hero-content {            flex: 1;        }        .hero h1 {            font-size: 3.5rem;            margin-bottom: 1rem;            background: linear-gradient(45deg, #ff6b00, #ffa500);            -webkit-background-clip: text;            -webkit-text-fill-color: transparent;        }        .hero p {            font-size: 1.2rem;            color: #ffa07a;            margin-bottom: 2rem;            line-height: 1.6;        }        .discord-status {            background: rgba(58, 26, 26, 0.8);            backdrop-filter: blur(10px);            border-radius: 15px;            padding: 1.5rem;            margin-bottom: 3rem;            border: 1px solid #ff6b00;            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);        }        .status-header {            display: flex;            align-items: center;            gap: 1rem;            margin-bottom: 1rem;        }        .discord-logo {            color: #ff6b00;            font-size: 1.5rem;        }
+        .status-content {            display: flex;            align-items: center;            gap: 1rem;        }        .status-avatar {            width: 60px;            height: 60px;            border-radius: 50%;            background: linear-gradient(45deg, #ff6b00, #ffa500);            display: flex;            align-items: center;            justify-content: center;            overflow: hidden;            border: 2px solid #ff6b00;        }        .status-avatar img {            width: 100%;            height: 100%;            object-fit: cover;        }        .status-avatar i {            font-size: 1.8rem;            color: white;        }        .status-info h3 {            font-size: 1.2rem;            margin-bottom: 0.3rem;            color: #ffa500;        }        .status-info p {            color: #ffa07a;            display: flex;            align-items: center;            gap: 0.5rem;            margin-bottom: 0.5rem;        }        .status-dot {            width: 10px;            height: 10px;            border-radius: 50%;        }        .online {            background-color: #ff6b00;        }        .idle {            background-color: #ffa500;        }        .dnd {            background-color: #ff4500;            }        .offline {            background-color: #8b4513;        }        .activity {            margin-top: 1rem;            padding-top: 1rem;            border-top: 1px solid #ff6b00;        }        .activity p {            color: #ffa07a;            margin-bottom: 0.5rem;        }        .activity strong {            color: #ffa500;        }        .about {            margin-bottom: 5rem;        }        .section-title {            font-size: 2rem;            margin-bottom: 2rem;            text-align: center;            color: #ffa500;        }        .about-content {            background: rgba(58, 26, 26, 0.8);            backdrop-filter: blur(10px);            border-radius: 15px;            padding: 2rem;            border: 1px solid #ff6b00;            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);        }        .about-content p {            color: #ffa07a;            line-height: 1.6;            margin-bottom: 1.5rem;            font-size: 1.1rem;        }        .interests {            margin-bottom: 5rem;        }        .interests-grid {            display: grid;            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));            gap: 1.5rem;        }        .interest-card {            background: rgba(58, 26, 26, 0.8);            backdrop-filter: blur(10px);            border-radius: 15px;            padding: 1.5rem;            text-align: center;            border: 1px solid #ff6b00;            transition: transform 0.3s;            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.2);        }        .interest-card:hover {            transform: translateY(-5px);            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.4);        }        .interest-icon {            font-size: 2.5rem;            margin-bottom: 1rem;            color: #ffa500;        }        .contact {            text-align: center;            margin-bottom: 3rem;        }        .social-links {            display: flex;            justify-content: center;            gap: 2rem;            margin-top: 2rem;        }        .social-link {            display: flex;            align-items: center;            justify-content: center;            width: 50px;            height: 50px;            border-radius: 50%;            background: rgba(58, 26, 26, 0.8);            color: #ffa500;            font-size: 1.5rem;            text-decoration: none;            transition: transform 0.3s, background 0.3s;            border: 1px solid #ff6b00;        }        .social-link:hover {            transform: translateY(-5px);            background: rgba(255, 107, 0, 0.2);            color: #ff6b00;       }                footer {            text-align: center;            padding: 2rem 0;            color: #ffa07a;            border-top: 1px solid #ff6b00;        }        .loading {            text-align: center;            padding: 2rem;            color: #ffa07a;        }        .lucifer-quote {            text-align: center;            font-style: italic;            margin: 2rem 0;            color: #ffa500;            font-size: 1.1rem;        }        .apple-icon {            color: #ff6b00;            margin: 0 0.5rem;
         }
-
-        body {
-            background: linear-gradient(to bottom, #1a0f0f, #2a1515, #3a1a1a);
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        #stars {
+        
+        /* --- THEMED TRANSCLUCENT FIXED BOTTOM PLAYER STYLING --- */
+        #fixed-music-player-container {
             position: fixed;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            background-color: #ffa500;
-            border-radius: 50%;
-            animation: twinkle 5s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.8; }
-        }
-
-        .moon {
-            position: fixed;
-            top: 10%;
-            right: 10%;
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle at 30% 30%, #ff6b00, #ffa500);
-            border-radius: 50%;
-            box-shadow: 0 0 50px rgba(255, 165, 0, 0.5);
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        header {
+            height: 80px; 
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid #ff6b00;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ff6b00, #ffa500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #ffa07a;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #ff6b00;
-        }
-
-        .hero {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            margin-bottom: 5rem;
-        }
-
-        .profile-image {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(255, 107, 0, 0.5);
-            border: 3px solid #ff6b00;
-        }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .hero-content {
-            flex: 1;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ff6b00, #ffa500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #ffa07a;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .discord-status {
-            background: rgba(58, 26, 26, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 3rem;
-            border: 1px solid #ff6b00;
-            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
-        }
-
-        .status-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .discord-logo {
-            color: #ff6b00;
-            font-size: 1.5rem;
-        }
-
-        .status-content {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .status-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff6b00, #ffa500);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 2px solid #ff6b00;
-        }
-
-        .status-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .status-avatar i {
-            font-size: 1.8rem;
-            color: white;
-        }
-
-        .status-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
-            color: #ffa500;
-        }
-
-        .status-info p {
-            color: #ffa07a;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .online {
-            background-color: #ff6b00;
-        }
-
-        .idle {
-            background-color: #ffa500;
-        }
-
-        .dnd {
-            background-color: #ff4500;
-        }
-
-        .offline {
-            background-color: #8b4513;
-        }
-
-        .activity {
-            margin-top: 1rem;
-            padding-top: 1rem;
+            padding: 0 20px;
+            /* Translucent dark orange background */
+            background: rgba(42, 21, 21, 0.9); 
             border-top: 1px solid #ff6b00;
+            z-index: 1000; 
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
         }
 
-        .activity p {
-            color: #ffa07a;
-            margin-bottom: 0.5rem;
-        }
-
-        .activity strong {
-            color: #ffa500;
-        }
-
-        .about {
-            margin-bottom: 5rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #ffa500;
-        }
-
-        .about-content {
-            background: rgba(58, 26, 26, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid #ff6b00;
-            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
-        }
-
-        .about-content p {
-            color: #ffa07a;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .interests {
-            margin-bottom: 5rem;
-        }
-
-        .interests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .interest-card {
-            background: rgba(58, 26, 26, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            border: 1px solid #ff6b00;
-            transition: transform 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.2);
-        }
-
-        .interest-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.4);
-        }
-
-        .interest-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #ffa500;
-        }
-
-        .contact {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
+        .song-info {
             display: flex;
             align-items: center;
-            justify-content: center;
+            width: 25%; 
+            min-width: 180px; 
+            text-align: left;
+        }
+
+        .song-info img {
             width: 50px;
             height: 50px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 4px; 
+        }
+
+        .song-details h4 {
+            color: #ffffff; 
+            font-size: 1rem;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .song-details p {
+            color: #ffa500; 
+            font-size: 0.85rem;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-controls-middle {
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            max-width: 600px; 
+        }
+
+        .playback-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px; 
+            color: #b3b3b3; /* Default inactive color */
+        }
+
+        .playback-buttons i {
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .playback-buttons i:hover {
+            color: #fff; 
+        }
+
+        /* Active color for shuffle/repeat is orange */
+        .playback-buttons i.active {
+            color: #ff6b00;
+        }
+
+        /* Play/Pause Button is ORANGE */
+        .playback-buttons .main-play-pause {
+            font-size: 2.2rem; 
+            color: #ff6b00; 
+        }
+        .playback-buttons .main-play-pause:hover {
+            color: #ffa500; 
+            transform: scale(1.05);
+        }
+
+        .progress-bar-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+            font-size: 0.75rem;
+            color: #b3b3b3;
+        }
+
+        /* Custom range slider styling for seek bar */
+        #progressBar {
+            flex-grow: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            /* Using linear gradient to simulate progress color for supported browsers */
+            background: linear-gradient(to right, #ff6b00 0%, #ff6b00 var(--progress-ratio), #404040 var(--progress-ratio), #404040 100%);
+            border-radius: 2px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* Progress Bar Thumb is ORANGE */
+        #progressBar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ff6b00; 
             border-radius: 50%;
-            background: rgba(58, 26, 26, 0.8);
-            color: #ffa500;
-            font-size: 1.5rem;
-            text-decoration: none;
-            transition: transform 0.3s, background 0.3s;
-            border: 1px solid #ff6b00;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
 
-        .social-link:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 107, 0, 0.2);
-            color: #ff6b00;
-       }
-        
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: #ffa07a;
-            border-top: 1px solid #ff6b00;
+        .volume-controls {
+            width: 25%; 
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            color: #b3b3b3;
+        }
+        .volume-controls i {
+            font-size: 1.2rem;
+            cursor: pointer;
         }
 
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: #ffa07a;
+        /* Custom range slider styling for volume bar */
+        #volumeSlider {
+            width: 100px; 
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            /* Using linear gradient to simulate volume color */
+            background: linear-gradient(to right, #ff6b00 0%, #ff6b00 var(--volume-ratio), #404040 var(--volume-ratio), #404040 100%);
+            border-radius: 2px;
+            cursor: pointer;
+            outline: none;
         }
 
-        .lucifer-quote {
-            text-align: center;
-            font-style: italic;
-            margin: 2rem 0;
-            color: #ffa500;
-            font-size: 1.1rem;
-        }
-
-        .apple-icon {
-            color: #ff6b00;
-            margin: 0 0.5rem;
+        /* Volume Slider Thumb is ORANGE */
+        #volumeSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ff6b00; 
+            border-radius: 50%;
+            cursor: pointer;
         }
 
         @media (max-width: 768px) {
-            .hero {
+            .hero {                flex-direction: column;                text-align: center;            }                        nav ul {                gap: 1rem;            }                        .hero h1 {                font-size: 2.5rem;            }
+            
+            /* Mobile Player Bar Styling */
+            #fixed-music-player-container {
+                height: auto; 
                 flex-direction: column;
-                text-align: center;
+                padding: 10px 10px;
             }
-            
-            nav ul {
-                gap: 1rem;
+            .song-info, .player-controls-middle, .volume-controls {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 5px;
             }
-            
-            .hero h1 {
-                font-size: 2.5rem;
+            .song-info {
+                flex-direction: row; 
+                text-align: left;
+                margin-bottom: 10px;
             }
-        }
-    </style>
-</head>
-<body>
-    <div id="stars"></div>
-    <div class="moon"></div>
-
-    <div class="container">
-        <header>
-            <div class="logo">Sunny <i class="fas fa-crown apple-icon"></i></div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#interests">Interests</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <section class="hero" id="home">
-            <div class="profile-image">
-                <img src="https://i.imgur.com/h2nDQ2U.jpeg" alt="Sunny Profile Picture">
-            </div>
-            <div class="hero-content">
-                <h1>Hello, I'm Sunny <i class="fas fa-crown apple-icon"></i></h1>
-                <p>Welcome to my personal profile! I'm passionate about gaming, music, and connecting with amazing people online.</p>
-                
-                <div class="lucifer-quote">
-                    "The King Of Hell" <i class="fas fa-apple-alt apple-icon"></i>
-                </div>
-                
-                <div class="discord-status" id="discord-status">
-                    <div class="status-header">
-                        <i class="fab fa-discord discord-logo"></i>
-                        <h2>Discord Status</h2>
-                    </div>
-                    <div class="loading" id="status-loading">
-                        <p>Loading Discord status...</p>
-                    </div>
-                    <div class="status-content" id="status-content" style="display: none;">
-                        <div class="status-avatar" id="status-avatar">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div class="status-info">
-                            <h3 id="username">Sunny</h3>
-                            <p><span class="status-dot" id="status-dot"></span> <span id="status-text">Loading...</span></p>
-                            <div class="activity" id="activity-container"></div>
-                        </div>
-                    </div>
+            .song-info img {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            .player-controls-middle {
+                max-width: 100%;
+                gap: 10px;
+            }
+            .progress-bar-container {
+                width: 90%;
+            }
+            .volume-controls {
+                justify-content: center;
+                margin-top: 5px;
+            }
+            #volumeSlider {
+                width: 80px;
+            }
+        }    </style></head><body>    <div id="stars"></div>    <div class="moon"></div>    <div class="container">        <header>            <div class="logo">Sunny <i class="fas fa-crown apple-icon"></i></div>            <nav>                <ul>                    <li><a href="#home">Home</a></li>                    <li><a href="#about">About</a></li>                    <li><a href="#interests">Interests</a></li>                    <li><a href="#contact">Contact</a></li>
+                </ul>            </nav>        </header>        <section class="hero" id="home">            <div class="profile-image">                <img src="https://i.imgur.com/h2nDQ2U.jpeg" alt="Sunny Profile Picture">            </div>            <div class="hero-content">                <h1>Hello, I'm Sunny <i class="fas fa-crown apple-icon"></i></h1>                <p>Welcome to my personal profile! I'm passionate about gaming, music, and connecting with amazing people online.</p>                                <div class="lucifer-quote">                    "The King Of Hell" <i class="fas fa-apple-alt apple-icon"></i>                </div>                                <div class="discord-status" id="discord-status">                    <div class="status-header">                        <i class="fab fa-discord discord-logo"></i>                        <h2>Discord Status</h2>                    </div>                    <div class="loading" id="status-loading">                        <p>Loading Discord status...</p>                    </div>                    <div class="status-content" id="status-content" style="display: none;">                        <div class="status-avatar" id="status-avatar">                            <i class="fas fa-crown"></i>                        </div>                        <div class="status-info">                            <h3 id="username">Sunny</h3>                            <p><span class="status-dot" id="status-dot"></span> <span id="status-text">Loading...</span></p>                            <div class="activity" id="activity-container"></div>                        </div>                    </div>                </div>            </div>        </section>        <section class="about" id="about">            <h2 class="section-title">About Me <i class="fas fa-apple-alt apple-icon"></i></h2>            <div class="about-content">                <p>Hey there! I'm Sunny, a passionate gamer and music enthusiast who loves connecting with people from all around the world. When I'm not gaming, you can usually find me exploring new music or hanging out with friends.</p>                <p>I believe in creating positive experiences and building meaningful connections online. Whether we're teaming up in a game or just chatting about life, I'm always up for a good conversation!</p>                <p>My favorite games include Terraria, YOMI Hustle, Warframe, Minecraft, FOR HONOR, Elden Ring, Apex Legends, Titanfall 2, but I'm always open to trying new games and experiences.</p>                <div class="lucifer-quote">                    "That's it. Almost there. Now presenting... the magic-tastical back flipping rubber duck! Haha! That spits fire! Hoo hoo hoo! " <i class="fas fa-crown apple-icon"></i>                </div>            </div>        </section>        <section class="interests" id="interests">            <h2 class="section-title">My Interests <i class="fas fa-fire apple-icon"></i></h2>            <div class="interests-grid">                <div class="interest-card">                    <i class="fas fa-gamepad interest-icon"></i>                    <h3>Gaming</h3>                    <p>Competitive & casual gaming</p>                </div>                <div class="interest-card">                    <i class="fas fa-music interest-icon"></i>                    <h3>Music</h3>                    <p>Exploring new artists & genres</p>
+                </div>                <div class="interest-card">                    <i class="fas fa-crown interest-icon"></i>                    <h3>Hazbin Hotel</h3>                    <p>Lucifer & character lore</p>
                 </div>
             </div>
         </section>
-
-        <section class="about" id="about">
-            <h2 class="section-title">About Me <i class="fas fa-apple-alt apple-icon"></i></h2>
-            <div class="about-content">
-                <p>Hey there! I'm Sunny, a passionate gamer and music enthusiast who loves connecting with people from all around the world. When I'm not gaming, you can usually find me exploring new music or hanging out with friends.</p>
-                <p>I believe in creating positive experiences and building meaningful connections online. Whether we're teaming up in a game or just chatting about life, I'm always up for a good conversation!</p>
-                <p>My favorite games include Terraria, YOMI Hustle, Warframe, Minecraft, FOR HONOR, Elden Ring, Apex Legends, Titanfall 2, but I'm always open to trying new games and experiences.</p>
-                <div class="lucifer-quote">
-                    "That's it. Almost there. Now presenting... the magic-tastical back flipping rubber duck! Haha! That spits fire! Hoo hoo hoo! " <i class="fas fa-crown apple-icon"></i>
-                </div>
-            </div>
-        </section>
-
-        <section class="interests" id="interests">
-            <h2 class="section-title">My Interests <i class="fas fa-fire apple-icon"></i></h2>
-            <div class="interests-grid">
-                <div class="interest-card">
-                    <i class="fas fa-gamepad interest-icon"></i>
-                    <h3>Gaming</h3>
-                    <p>Competitive & casual gaming</p>
-                </div>
-                <div class="interest-card">
-                    <i class="fas fa-music interest-icon"></i>
-                    <h3>Music</h3>
-                    <p>Exploring new artists & genres</p>
-                </div>
-                <div class="interest-card">
-                    <i class="fas fa-crown interest-icon"></i>
-                    <h3>Hazbin Hotel</h3>
-                    <p>Lucifer & character lore</p>
-                </div>
-            </div>
-        </section>
-
         <section class="contact" id="contact">
             <h2 class="section-title">Connect With Me <i class="fas fa-handshake apple-icon"></i></h2>
             <p>Feel free to reach out if you want to chat or play games together!</p>
-
-            <div class="social-links">
-    <a href="https://open.spotify.com/user/31dvyq7zoixyflejfamgk44na4ke" class="social-link"><i class="fab fa-spotify"></i></a>
-
-    <a href="https://steamcommunity.com/id/962568498745875847/" class="social-link"><i class="fab fa-steam"></i></a>
-
-    <a href="https://twitch.tv/sunnyxvoidy" class="social-link"><i class="fab fa-twitch"></i></a>
-
-    <a href="https://youtube.com/@SunnyXVoidy" class="social-link"><i class="fab fa-youtube"></i></a>
-
-    <a href="https://roblox.com/users/560703500/profile" class="social-link"><i class="fas fa-gamepad"></i></a>
-
-    <a href="https://cash.app/$sunnyxvoidy" class="social-link"><i class="fas fa-money-bill-wave"></i></a>
-            </div>
-            
-            <div class="lucifer-quote">
-                "My daughter wants to see me! Take that, depression!" <i class="fas fa-apple-alt apple-icon"></i>
-            </div>
-        </section>
-
-        <footer>
-            <p>© 2025 Sunny. All rights reserved. <i class="fas fa-crown apple-icon"></i></p>
-        </footer>
+            <div class="social-links">    
+                <a href="https://open.spotify.com/user/31dvyq7zoixyflejfamgk44na4ke" class="social-link"><i class="fab fa-spotify"></i></a>    
+                <a href="https://steamcommunity.com/id/962568498745875847/" class="social-link"><i class="fab fa-steam"></i></a>    
+                <a href="https://twitch.tv/sunnyxvoidy" class="social-link"><i class="fab fa-twitch"></i></a>    
+                <a href="https://youtube.com/@SunnyXVoidy" class="social-link"><i class="fab fa-youtube"></i></a>    
+                <a href="https://roblox.com/users/560703500/profile" class="social-link"><i class="fas fa-gamepad"></i></a>    
+                <a href="https://cash.app/$sunnyxvoidy" class="social-link"><i class="fas fa-money-bill-wave"></i></a>            
+            </div>                        
+            <div class="lucifer-quote">                
+                "My daughter wants to see me! Take that, depression!" <i class="fas fa-apple-alt apple-icon"></i>            
+            </div>        
+        </section>        
+        <footer>            
+            <p>© 2025 Sunny. All rights reserved. <i class="fas fa-crown apple-icon"></i></p>        
+        </footer>    
     </div>
+    
+    <div id="fixed-music-player-container">
+        <div class="song-info">
+            <img src="https://i.imgur.com/Om0pBLu.jpeg" alt="Hell's Greatest Dad Album Cover">
+            <div class="song-details">
+                <h4>Hell's Greatest Dad (Sing-Along)</h4>
+                <p>Lucifer Morningstar & Alastor</p>
+            </div>
+        </div>
 
-    <script>
+        <div class="player-controls-middle">
+            <div class="playback-buttons">
+                <i class="fas fa-random" id="shuffleBtn"></i>
+                <i class="fas fa-backward" id="prevBtn"></i>
+                <i class="fas fa-play main-play-pause" id="playPauseBtn"></i>
+                <i class="fas fa-forward" id="nextBtn"></i>
+                <i class="fas fa-redo" id="repeatBtn"></i>
+            </div>
+            <div class="progress-bar-container">
+                <span id="currentTime">0:00</span>
+                <input type="range" id="progressBar" value="0" step="0.1">
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+        <div class="volume-controls">
+            <i class="fas fa-volume-up" id="volumeIcon"></i>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+            <audio id="audioPlayer" autoplay loop>
+                <source src="https://cdn.discordapp.com/attachments/1438664374532440247/1439108371981537361/Prime_Video_-_Hells_Greatest_Dad_Sing-Along_Hazbin_Hotel_Prime_Video.m4a?ex=6919519d&is=6918001d&hm=a96cfda904c7dba6348bd63c94d5a2aac1f15c3ee4501cdd0f96455e5f31be52&" type="audio/mp4">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+    <script>        
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starCount = 200;
-            
+            const starCount = 200;                        
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
-                star.classList.add('star');
-                
+                star.classList.add('star');                                
                 const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                
-                const size = Math.random() * 3;
-                
-                const delay = Math.random() * 5;
-                
+                const y = Math.random() * 100;                                
+                const size = Math.random() * 3;                                
+                const delay = Math.random() * 5;                                
                 star.style.left = `${x}%`;
                 star.style.top = `${y}%`;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
-                star.style.animationDelay = `${delay}s`;
-                
+                star.style.animationDelay = `${delay}s`;                                
                 starsContainer.appendChild(star);
             }
-        }
-        
+        }                
         async function fetchDiscordStatus() {
             const userId = '1117652429698252820';
-            const apiUrl = `https://api.lanyard.rest/v1/users/${userId}`;
-            
+            const apiUrl = `https://api.lanyard.rest/v1/users/${userId}`;                        
             try {
                 const response = await fetch(apiUrl);
-                const data = await response.json();
-                
+                const data = await response.json();                                
                 if (data.success) {
                     updateDiscordStatus(data.data);
                 } else {
@@ -531,69 +298,298 @@
                 console.error('Error fetching Discord status:', error);
                 document.getElementById('status-loading').innerHTML = '<p>Failed to load Discord status</p>';
             }
-        }
-        
+        }                
         function updateDiscordStatus(data) {
             document.getElementById('status-loading').style.display = 'none';
-            document.getElementById('status-content').style.display = 'flex';
-            
-            document.getElementById('username').textContent = data.discord_user.username;
-            
+            document.getElementById('status-content').style.display = 'flex';                        
+            document.getElementById('username').textContent = data.discord_user.username;                        
             const status = data.discord_status;
             const statusDot = document.getElementById('status-dot');
-            const statusText = document.getElementById('status-text');
-            
+            const statusText = document.getElementById('status-text');                        
             statusDot.className = 'status-dot';
-            statusDot.classList.add(status);
-            
+            statusDot.classList.add(status);                        
             const statusMap = {
                 'online': 'Online',
                 'idle': 'Idle',
                 'dnd': 'Do Not Disturb',
                 'offline': 'Offline'
             };
-            statusText.textContent = statusMap[status] || 'Unknown';
-            
+            statusText.textContent = statusMap[status] || 'Unknown';                        
             if (data.discord_user.avatar) {
                 const avatarUrl = `https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png`;
                 const statusAvatar = document.getElementById('status-avatar');
                 statusAvatar.innerHTML = `<img src="${avatarUrl}" alt="Discord Avatar">`;
-            }
-            
+            }                        
             const activityContainer = document.getElementById('activity-container');
-            activityContainer.innerHTML = '';
-            
+            activityContainer.innerHTML = '';                        
             if (data.activities && data.activities.length > 0) {
                 data.activities.forEach(activity => {
                     if (activity.type === 0 || activity.type === 2) {
                         const activityEl = document.createElement('div');
-                        activityEl.classList.add('activity');
-                        
+                        activityEl.classList.add('activity');                                                
                         if (activity.type === 0) {
-                            activityEl.innerHTML = `
-                                <p><strong>Playing</strong> ${activity.name}</p>
-                                ${activity.details ? `<p>${activity.details}</p>` : ''}
-                                ${activity.state ? `<p>${activity.state}</p>` : ''}
-                            `;
+                            activityEl.innerHTML = `                                <p><strong>Playing</strong> ${activity.name}</p>                                ${activity.details ? `<p>${activity.details}</p>` : ''}                                ${activity.state ? `<p>${activity.state}</p>` : ''}                            `;
                         } else if (activity.type === 2) {
-                            activityEl.innerHTML = `
-                                <p><strong>Listening</strong> ${activity.details}</p>
-                                <p>by ${activity.state}</p>
-                            `;
-                        }
-                        
+                            activityEl.innerHTML = `                                <p><strong>Listening</strong> ${activity.details}</p>                                <p>by ${activity.state}</p>                            `;
+                        }                                                
                         activityContainer.appendChild(activityEl);
                     }
                 });
             }
-        }
+        }                
         
+        // --- TITLE ANIMATION SCRIPT ---
+        const prefix = "@";         
+        const targetWord = "Starry/Sunny";         
+        const letters = targetWord.split('');         
+        const spellingSpeed = 400; 
+        const backspaceSpeed = 100;         
+        const pauseBeforeBackspace = 1000;         
+        const pauseAfterBackspace = 500;          
+
+        let index = 0;         
+        let currentInterval; 
+
+        function startSpelling() {
+            if (currentInterval) clearInterval(currentInterval);
+            document.title = prefix; 
+            currentInterval = setInterval(spellTitle, spellingSpeed);
+        }
+
+        function spellTitle() {
+            if (index < letters.length) {
+                let currentTitle = document.title;
+                document.title = currentTitle + letters[index];
+                index++;
+            } else {
+                clearInterval(currentInterval);
+                setTimeout(startBackspace, pauseBeforeBackspace);
+            }
+        }
+
+        function startBackspace() {
+            currentInterval = setInterval(backspaceTitle, backspaceSpeed);
+        }
+
+        function backspaceTitle() {
+            let currentTitle = document.title;
+            if (currentTitle.length > prefix.length) {
+                document.title = currentTitle.substring(0, currentTitle.length - 1);
+            } else {
+                clearInterval(currentInterval);
+                index = 0; 
+                setTimeout(startSpelling, pauseAfterBackspace);
+            }
+        }
+
+        // --- Custom Audio Player JavaScript (Integrated into DOMContentLoaded) ---
         document.addEventListener('DOMContentLoaded', () => {
+            // Original calls
             createStars();
             fetchDiscordStatus();
+            setInterval(fetchDiscordStatus, 1000); 
+            startSpelling(); 
+
+            // Player variables
+            const audioPlayer = document.getElementById('audioPlayer');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const progressBar = document.getElementById('progressBar');
+            const currentTimeSpan = document.getElementById('currentTime');
+            const durationSpan = document.getElementById('duration');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const volumeIcon = document.getElementById('volumeIcon');
             
-            setInterval(fetchDiscordStatus, 1000);
+            // New Player buttons
+            const shuffleBtn = document.getElementById('shuffleBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const repeatBtn = document.getElementById('repeatBtn');
+
+            // --- INITIAL STATE ---
+            let isPlaying = false; // Will be set to true if autoplay works
+            let isShuffling = false;
+            let isRepeating = true; // Set to true to match the HTML 'loop' attribute
+            let currentVolume = volumeSlider.value; 
+
+            // Set initial UI state for loop button
+            repeatBtn.classList.add('active'); 
+            
+            // Helper to format time (e.g., 65 seconds -> 1:05)
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+            }
+
+            // Helper to update volume icon based on level
+            function updateVolumeIcon(volume) {
+                volumeIcon.classList.remove('fa-volume-up', 'fa-volume-down', 'fa-volume-mute');
+                if (volume > 0.5) {
+                    volumeIcon.classList.add('fa-volume-up');
+                } else if (volume > 0) {
+                    volumeIcon.classList.add('fa-volume-down');
+                } else {
+                    volumeIcon.classList.add('fa-volume-mute');
+                }
+            }
+            
+            // Helper to update progress bar theme fill (required for custom range styling)
+            function updateSliderFill(slider, ratio, cssVar) {
+                // Ratio is a number between 0 and 100 (percentage)
+                slider.style.setProperty(cssVar, `${ratio}%`);
+            }
+
+            // Function to restart the current song (used for prev/next for a single track)
+            function restartSong() {
+                 audioPlayer.currentTime = 0; // Rewind to start
+                 audioPlayer.play();
+                 // Update UI to playing state
+                 if (!isPlaying) {
+                     playPauseBtn.classList.remove('fa-play');
+                     playPauseBtn.classList.add('fa-pause');
+                     isPlaying = true;
+                 }
+            }
+
+
+            // --- CORE PLAYER LISTENERS ---
+            
+            // 1. Toggle Play/Pause
+            playPauseBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audioPlayer.pause();
+                    playPauseBtn.classList.remove('fa-pause');
+                    playPauseBtn.classList.add('fa-play');
+                    isPlaying = false;
+                } else {
+                    audioPlayer.play().then(() => {
+                        playPauseBtn.classList.remove('fa-play');
+                        playPauseBtn.classList.add('fa-pause');
+                        isPlaying = true;
+                    }).catch(error => {
+                        console.error("Autoplay failed:", error);
+                        // Autoplay blocked, but we tried!
+                    });
+                }
+            });
+            
+            // 2. Restart/Next/Previous functionality
+            prevBtn.addEventListener('click', restartSong);
+            nextBtn.addEventListener('click', restartSong);
+            
+            // 3. Toggle Shuffle (visual only for a single song)
+            shuffleBtn.addEventListener('click', () => {
+                isShuffling = !isShuffling;
+                shuffleBtn.classList.toggle('active', isShuffling);
+            });
+            
+            // 4. Toggle Repeat (FIXED: This now accurately toggles the 'loop' HTML property)
+            repeatBtn.addEventListener('click', () => {
+                isRepeating = !isRepeating;
+                repeatBtn.classList.toggle('active', isRepeating);
+                audioPlayer.loop = isRepeating; // The fix is ensuring this correctly toggles the attribute
+            });
+
+
+            // --- STATUS & SEEK LISTENERS ---
+
+            // 5. Update Progress Bar and Time Display
+            audioPlayer.addEventListener('timeupdate', () => {
+                const currentTime = audioPlayer.currentTime;
+                const duration = audioPlayer.duration;
+                let progressRatio = 0;
+
+                if (!isNaN(duration) && duration > 0) {
+                    progressRatio = (currentTime / duration) * 100;
+                    progressBar.value = progressRatio;
+                }
+                
+                // Update themed progress bar fill
+                updateSliderFill(progressBar, progressRatio, '--progress-ratio');
+
+                currentTimeSpan.textContent = formatTime(currentTime);
+
+                if (isNaN(duration)) {
+                    durationSpan.textContent = '0:00';
+                } else {
+                    durationSpan.textContent = formatTime(duration);
+                }
+            });
+
+            // 6. Set Duration on metadata load & Autoplay check
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                durationSpan.textContent = formatTime(audioPlayer.duration);
+                progressBar.max = 100; 
+                audioPlayer.volume = volumeSlider.value;
+                updateVolumeIcon(audioPlayer.volume);
+                
+                // Initialize volume slider fill
+                updateSliderFill(volumeSlider, volumeSlider.value * 100, '--volume-ratio');
+            });
+            
+            // 7. Autoplay check (required because browser might block it)
+            audioPlayer.addEventListener('play', () => {
+                playPauseBtn.classList.remove('fa-play');
+                playPauseBtn.classList.add('fa-pause');
+                isPlaying = true;
+            });
+
+            audioPlayer.addEventListener('pause', () => {
+                playPauseBtn.classList.remove('fa-pause');
+                playPauseBtn.classList.add('fa-play');
+                isPlaying = false;
+            });
+            
+            // 8. Ended listener to reset the player UI (only needed when NOT looping)
+            audioPlayer.addEventListener('ended', () => {
+                // This logic only runs if audioPlayer.loop is false, as the browser handles the loop case
+                isPlaying = false;
+                playPauseBtn.classList.remove('fa-pause');
+                playPauseBtn.classList.add('fa-play');
+                audioPlayer.currentTime = 0; // Rewind to start
+                updateSliderFill(progressBar, 0, '--progress-ratio'); // Reset fill
+            });
+
+            // 9. Seek functionality
+            progressBar.addEventListener('input', () => {
+                const seekTime = (progressBar.value / 100) * audioPlayer.duration;
+                audioPlayer.currentTime = seekTime;
+                // Update themed progress bar fill manually while seeking
+                updateSliderFill(progressBar, progressBar.value, '--progress-ratio');
+            });
+
+            // 10. Volume Control
+            volumeSlider.addEventListener('input', () => {
+                audioPlayer.volume = volumeSlider.value;
+                currentVolume = audioPlayer.volume;
+                updateVolumeIcon(audioPlayer.volume);
+                
+                // Update themed volume slider fill
+                updateSliderFill(volumeSlider, volumeSlider.value * 100, '--volume-ratio');
+            });
+
+            // 11. Mute/Unmute
+            volumeIcon.addEventListener('click', () => {
+                if (audioPlayer.volume > 0) {
+                    // Mute, save current volume
+                    currentVolume = audioPlayer.volume;
+                    audioPlayer.volume = 0;
+                    volumeSlider.value = 0;
+                    updateVolumeIcon(0);
+                    updateSliderFill(volumeSlider, 0, '--volume-ratio');
+                } else {
+                    // Unmute/Restore
+                    const restoreVolume = currentVolume > 0 ? currentVolume : 0.5;
+                    audioPlayer.volume = restoreVolume; 
+                    volumeSlider.value = restoreVolume;
+                    updateVolumeIcon(restoreVolume);
+                    updateSliderFill(volumeSlider, restoreVolume * 100, '--volume-ratio');
+                }
+            });
+            
+            // Manual initialization of the slider fills after setup
+            updateSliderFill(progressBar, 0, '--progress-ratio');
+            updateSliderFill(volumeSlider, volumeSlider.value * 100, '--volume-ratio');
         });
-    </script>
-</body>
-</html>
+        
+    </script></body></html>

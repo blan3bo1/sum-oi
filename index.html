@@ -1,8 +1,314 @@
-<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>@</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    <style>        * {            margin: 0;            padding: 0;            box-sizing: border-box;            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;        }        body {            background: linear-gradient(to bottom, #1a0f0f, #2a1515, #3a1a1a);            color: #ffffff;            min-height: 100vh;            overflow-x: hidden;            position: relative;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(to bottom, #1a0f0f, #2a1515, #3a1a1a);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
             /* FIX: Added padding-bottom to ensure content and footer are visible above the fixed 80px player bar */
             padding-bottom: 90px; 
-        }        #stars {            position: fixed;            top: 0;            left: 0;            width: 100%;            height: 100%;            z-index: -1;        }        .star {            position: absolute;            background-color: #ffa500;            border-radius: 50%;            animation: twinkle 5s infinite;        }        @keyframes twinkle {            0%, 100% { opacity: 0.2; }            50% { opacity: 0.8; }        }        .moon {            position: fixed;            top: 10%;            right: 10%;            width: 120px;            height: 120px;            background: radial-gradient(circle at 30% 30%, #ff6b00, #ffa500);            border-radius: 50%;            box-shadow: 0 0 50px rgba(255, 165, 0, 0.5);            z-index: -1;        }        .container {            max-width: 1200px;            margin: 0 auto;            padding: 2rem;        }        header {            display: flex;            justify-content: space-between;            align-items: center;            padding: 1rem 0;            margin-bottom: 3rem;            border-bottom: 1px solid #ff6b00;        }        .logo {            font-size: 2rem;            font-weight: 700;            background: linear-gradient(45deg, #ff6b00, #ffa500);            -webkit-background-clip: text;            -webkit-text-fill-color: transparent;        }        nav ul {            display: flex;            list-style: none;            gap: 2rem;        }        nav a {            color: #ffa07a;            text-decoration: none;            font-weight: 500;            transition: color 0.3s;        }        nav a:hover {            color: #ff6b00;        }        .hero {            display: flex;            align-items: center;            gap: 3rem;            margin-bottom: 5rem;        }        .profile-image {            width: 300px;            height: 300px;            border-radius: 50%;            display: flex;            align-items: center;            justify-content: center;            position: relative;            overflow: hidden;            box-shadow: 0 0 30px rgba(255, 107, 0, 0.5);            border: 3px solid #ff6b00;        }        .profile-image img {            width: 100%;            height: 100%;            object-fit: cover;            border-radius: 50%;        }        .hero-content {            flex: 1;        }        .hero h1 {            font-size: 3.5rem;            margin-bottom: 1rem;            background: linear-gradient(45deg, #ff6b00, #ffa500);            -webkit-background-clip: text;            -webkit-text-fill-color: transparent;        }        .hero p {            font-size: 1.2rem;            color: #ffa07a;            margin-bottom: 2rem;            line-height: 1.6;        }        .discord-status {            background: rgba(58, 26, 26, 0.8);            backdrop-filter: blur(10px);            border-radius: 15px;            padding: 1.5rem;            margin-bottom: 3rem;            border: 1px solid #ff6b00;            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);        }        .status-header {            display: flex;            align-items: center;            gap: 1rem;            margin-bottom: 1rem;        }        .discord-logo {            color: #ff6b00;            font-size: 1.5rem;        }
-        .status-content {            display: flex;            align-items: center;            gap: 1rem;        }        .status-avatar {            width: 60px;            height: 60px;            border-radius: 50%;            background: linear-gradient(45deg, #ff6b00, #ffa500);            display: flex;            align-items: center;            justify-content: center;            overflow: hidden;            border: 2px solid #ff6b00;        }        .status-avatar img {            width: 100%;            height: 100%;            object-fit: cover;        }        .status-avatar i {            font-size: 1.8rem;            color: white;        }        .status-info h3 {            font-size: 1.2rem;            margin-bottom: 0.3rem;            color: #ffa500;        }        .status-info p {            color: #ffa07a;            display: flex;            align-items: center;            gap: 0.5rem;            margin-bottom: 0.5rem;        }        .status-dot {            width: 10px;            height: 10px;            border-radius: 50%;        }        .online {            background-color: #ff6b00;        }        .idle {            background-color: #ffa500;        }        .dnd {            background-color: #ff4500;            }        .offline {            background-color: #8b4513;        }        .activity {            margin-top: 1rem;            padding-top: 1rem;            border-top: 1px solid #ff6b00;        }        .activity p {            color: #ffa07a;            margin-bottom: 0.5rem;        }        .activity strong {            color: #ffa500;        }        .about {            margin-bottom: 5rem;        }        .section-title {            font-size: 2rem;            margin-bottom: 2rem;            text-align: center;            color: #ffa500;        }        .about-content {            background: rgba(58, 26, 26, 0.8);            backdrop-filter: blur(10px);            border-radius: 15px;            padding: 2rem;            border: 1px solid #ff6b00;            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);        }        .about-content p {            color: #ffa07a;            line-height: 1.6;            margin-bottom: 1.5rem;            font-size: 1.1rem;        }        .interests {            margin-bottom: 5rem;        }        .interests-grid {            display: grid;            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));            gap: 1.5rem;        }        .interest-card {            background: rgba(58, 26, 26, 0.8);            backdrop-filter: blur(10px);            border-radius: 15px;            padding: 1.5rem;            text-align: center;            border: 1px solid #ff6b00;            transition: transform 0.3s;            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.2);        }        .interest-card:hover {            transform: translateY(-5px);            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.4);        }        .interest-icon {            font-size: 2.5rem;            margin-bottom: 1rem;            color: #ffa500;        }        .contact {            text-align: center;            margin-bottom: 3rem;        }        .social-links {            display: flex;            justify-content: center;            gap: 2rem;            margin-top: 2rem;        }        .social-link {            display: flex;            align-items: center;            justify-content: center;            width: 50px;            height: 50px;            border-radius: 50%;            background: rgba(58, 26, 26, 0.8);            color: #ffa500;            font-size: 1.5rem;            text-decoration: none;            transition: transform 0.3s, background 0.3s;            border: 1px solid #ff6b00;        }        .social-link:hover {            transform: translateY(-5px);            background: rgba(255, 107, 0, 0.2);            color: #ff6b00;       }                footer {            text-align: center;            padding: 2rem 0;            color: #ffa07a;            border-top: 1px solid #ff6b00;        }        .loading {            text-align: center;            padding: 2rem;            color: #ffa07a;        }        .lucifer-quote {            text-align: center;            font-style: italic;            margin: 2rem 0;            color: #ffa500;            font-size: 1.1rem;        }        .apple-icon {            color: #ff6b00;            margin: 0 0.5rem;
+        }
+        #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            background-color: #ffa500;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+        .moon {
+            position: fixed;
+            top: 10%;
+            right: 10%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 30% 30%, #ff6b00, #ffa500);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255, 165, 0, 0.5);
+            z-index: -1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #ff6b00;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b00, #ffa500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        nav a {
+            color: #ffa07a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ff6b00;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.5);
+            border: 3px solid #ff6b00;
+        }
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b00, #ffa500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #ffa07a;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .discord-status {
+            background: rgba(58, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            border: 1px solid #ff6b00;
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+        }
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .discord-logo {
+            color: #ff6b00;
+            font-size: 1.5rem;
+        }
+        .status-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .status-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b00, #ffa500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid #ff6b00;
+        }
+        .status-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .status-avatar i {
+            font-size: 1.8rem;
+            color: white;
+        }
+        .status-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: #ffa500;
+        }
+        .status-info p {
+            color: #ffa07a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .online {
+            background-color: #ff6b00;
+        }
+        .idle {
+            background-color: #ffa500;
+        }
+        .dnd {
+            background-color: #ff4500;
+            }
+        .offline {
+            background-color: #8b4513;
+        }
+        .activity {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ff6b00;
+        }
+        .activity p {
+            color: #ffa07a;
+            margin-bottom: 0.5rem;
+        }
+        .activity strong {
+            color: #ffa500;
+        }
+        .about {
+            margin-bottom: 5rem;
+        }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ffa500;
+        }
+        .about-content {
+            background: rgba(58, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid #ff6b00;
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+        }
+        .about-content p {
+            color: #ffa07a;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .interests {
+            margin-bottom: 5rem;
+        }
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .interest-card {
+            background: rgba(58, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid #ff6b00;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.2);
+        }
+        .interest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.4);
+        }
+        .interest-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffa500;
+        }
+        .contact {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(58, 26, 26, 0.8);
+            color: #ffa500;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid #ff6b00;
+        }
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 107, 0, 0.2);
+            color: #ff6b00;
+       }                
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #ffa07a;
+            border-top: 1px solid #ff6b00;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #ffa07a;
+        }
+        .lucifer-quote {
+            text-align: center;
+            font-style: italic;
+            margin: 2rem 0;
+            color: #ffa500;
+            font-size: 1.1rem;
+        }
+        .apple-icon {
+            color: #ff6b00;
+            margin: 0 0.5rem;
         }
         
         /* --- THEMED TRANSCLUCENT FIXED BOTTOM PLAYER STYLING --- */
@@ -169,7 +475,9 @@
         }
 
         @media (max-width: 768px) {
-            .hero {                flex-direction: column;                text-align: center;            }                        nav ul {                gap: 1rem;            }                        .hero h1 {                font-size: 2.5rem;            }
+            .hero {                flex-direction: column;                text-align: center;            }                        
+            nav ul {                gap: 1rem;            }                        
+            .hero h1 {                font-size: 2.5rem;            }
             
             /* Mobile Player Bar Styling */
             #fixed-music-player-container {
@@ -205,9 +513,85 @@
             #volumeSlider {
                 width: 80px;
             }
-        }    </style></head><body>    <div id="stars"></div>    <div class="moon"></div>    <div class="container">        <header>            <div class="logo">Sunny <i class="fas fa-crown apple-icon"></i></div>            <nav>                <ul>                    <li><a href="#home">Home</a></li>                    <li><a href="#about">About</a></li>                    <li><a href="#interests">Interests</a></li>                    <li><a href="#contact">Contact</a></li>
-                </ul>            </nav>        </header>        <section class="hero" id="home">            <div class="profile-image">                <img src="https://cdn.discordapp.com/avatars/1117652429698252820/10b750464a9dba82833e4cb6eb04b20e.webp?size=1024" alt="Sunny Profile Picture">            </div>            <div class="hero-content">                <h1>I'm Sunny <i class="fas fa-crown apple-icon"></i></h1>                <p>Welcome I Guess.</p>                                <div class="lucifer-quote">                    "The King Of Hell" <i class="fas fa-apple-alt apple-icon"></i>                </div>                                <div class="discord-status" id="discord-status">                    <div class="status-header">                        <i class="fab fa-discord discord-logo"></i>                        <h2>Discord Status</h2>                    </div>                    <div class="loading" id="status-loading">                        <p>Loading Discord status...</p>                    </div>                    <div class="status-content" id="status-content" style="display: none;">                        <div class="status-avatar" id="status-avatar">                            <i class="fas fa-crown"></i>                        </div>                        <div class="status-info">                            <h3 id="username">Sunny</h3>                            <p><span class="status-dot" id="status-dot"></span> <span id="status-text">Loading...</span></p>                            <div class="activity" id="activity-container"></div>                        </div>                    </div>                </div>            </div>        </section>        <section class="about" id="about">            <h2 class="section-title">About Me <i class="fas fa-apple-alt apple-icon"></i></h2>            <div class="about-content">                <p>I'm Sunny! I spend most of my online time gaming, listening to music, and hanging out with my friends.</p>                <p></p>                <p>Current Game Rotation: Terraria, YOMI Hustle, Warframe, Minecraft, FOR HONOR, Elden Ring, Apex Legends, and Titanfall 2.</p>                <div class="lucifer-quote">                    "That's it. Almost there. Now presenting... the magic-tastical back flipping rubber duck! Haha! That spits fire! Hoo hoo hoo! " <i class="fas fa-crown apple-icon"></i>                </div>            </div>        </section>        <section class="interests" id="interests">            <h2 class="section-title">My Interests <i class="fas fa-fire apple-icon"></i></h2>            <div class="interests-grid">                <div class="interest-card">                    <i class="fas fa-gamepad interest-icon"></i>                    <h3>Gaming</h3>                    <p>Competitive & casual gaming</p>                </div>                <div class="interest-card">                    <i class="fas fa-music interest-icon"></i>                    <h3>Music</h3>                    <p>Exploring new artists & genres</p>
-                </div>                <div class="interest-card">                    <i class="fas fa-crown interest-icon"></i>                    <h3>Hazbin Hotel</h3>                    <p>Lucifer & character lore</p>
+        }    
+    </style>
+</head>
+<body>
+    <div id="stars"></div>
+    <div class="moon"></div>
+    <div class="container">
+        <header>
+            <div class="logo">Sunny <i class="fas fa-crown apple-icon"></i></div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#interests">Interests</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="hero" id="home">
+            <div class="profile-image">
+                <img src="https://cdn.discordapp.com/avatars/1117652429698252820/10b750464a9dba82833e4cb6eb04b20e.webp?size=1024" alt="Sunny Profile Picture">
+            </div>
+            <div class="hero-content">
+                <h1>I'm Sunny <i class="fas fa-crown apple-icon"></i></h1>
+                <p>Welcome I Guess.</p>
+                                
+                <div class="lucifer-quote">
+                    "The King Of Hell" <i class="fas fa-apple-alt apple-icon"></i>
+                </div>
+                                
+                <div class="discord-status" id="discord-status">
+                    <div class="status-header">
+                        <i class="fab fa-discord discord-logo"></i>
+                        <h2>Discord Status</h2>
+                    </div>
+                    <div class="loading" id="status-loading">
+                        <p>Loading Discord status...</p>
+                    </div>
+                    <div class="status-content" id="status-content" style="display: none;">
+                        <div class="status-avatar" id="status-avatar">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="status-info">
+                            <h3 id="username">Sunny</h3>
+                            <p><span class="status-dot" id="status-dot"></span> <span id="status-text">Loading...</span></p>
+                            <div class="activity" id="activity-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="about" id="about">
+            <h2 class="section-title">About Me <i class="fas fa-apple-alt apple-icon"></i></h2>
+            <div class="about-content">
+                <p>I'm Sunny! I spend most of my online time gaming, listening to music, and hanging out with my friends.</p>
+                <p></p>
+                <p>Current Game Rotation: Terraria, YOMI Hustle, Warframe, Minecraft, FOR HONOR, Elden Ring, Apex Legends, and Titanfall 2.</p>
+                <div class="lucifer-quote">
+                    "That's it. Almost there. Now presenting... the magic-tastical back flipping rubber duck! Haha! That spits fire! Hoo hoo hoo! " <i class="fas fa-crown apple-icon"></i>
+                </div>
+            </div>
+        </section>
+        <section class="interests" id="interests">
+            <h2 class="section-title">My Interests <i class="fas fa-fire apple-icon"></i></h2>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <i class="fas fa-gamepad interest-icon"></i>
+                    <h3>Gaming</h3>
+                    <p>Competitive & casual gaming</p>
+                </div>
+                <div class="interest-card">
+                    <i class="fas fa-music interest-icon"></i>
+                    <h3>Music</h3>
+                    <p>Exploring new artists & genres</p>
+                </div>
+                <div class="interest-card">
+                    <i class="fas fa-crown interest-icon"></i>
+                    <h3>Hazbin Hotel</h3>
+                    <p>Lucifer & character lore</p>
                 </div>
             </div>
         </section>
@@ -264,6 +648,7 @@
             </audio>
         </div>
     </div>
+    
     <script>        
         function createStars() {
             const starsContainer = document.getElementById('stars');
@@ -283,6 +668,7 @@
                 starsContainer.appendChild(star);
             }
         }                
+        
         async function fetchDiscordStatus() {
             const userId = '1117652429698252820';
             const apiUrl = `https://api.lanyard.rest/v1/users/${userId}`;                        
@@ -299,6 +685,7 @@
                 document.getElementById('status-loading').innerHTML = '<p>Failed to load Discord status</p>';
             }
         }                
+        
         function updateDiscordStatus(data) {
             document.getElementById('status-loading').style.display = 'none';
             document.getElementById('status-content').style.display = 'flex';                        
@@ -591,5 +978,6 @@
             updateSliderFill(progressBar, 0, '--progress-ratio');
             updateSliderFill(volumeSlider, volumeSlider.value * 100, '--volume-ratio');
         });
-        
-    </script></body></html>
+    </script>
+</body>
+</html>
